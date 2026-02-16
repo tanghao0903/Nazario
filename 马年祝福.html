@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>马年大吉 - 新春祝福</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'KaiTi', 'Microsoft YaHei', 'SimHei', serif;
+            background-image: url('https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/7f06740675bf42e295296eb48501bd16.PNG~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260216171436DB26EB9ECC839F57F7D9&rrcfp=dafada99&x-expires=2087457277&x-signature=ARaU%2BfEWvA2wknbnAzt36%2FiN27Q%3D');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* 引入钟齐志莽行书字体（优先使用本地，无则降级） */
+        @font-face {
+            font-family: 'ZhongQiZhiMangXingShu';
+            src: local('钟齐志莽行书'), 
+                 url('https://cdn.jsdelivr.net/gh/lxgw/LxgwZhiti/dist/LXGWWenKai-Regular.ttf') fallback; /* 备用字体链接（可替换为志莽行书CDN） */
+            font-display: swap;
+        }
+
+        /* 金箔背景 */
+        .gold-foil-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/7f06740675bf42e295296eb48501bd16.PNG~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260216171436DB26EB9ECC839F57F7D9&rrcfp=dafada99&x-expires=2087457277&x-signature=ARaU%2BfEWvA2wknbnAzt36%2FiN27Q%3D');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 0;
+        }
+
+        .gold-foil {
+            position: absolute;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            opacity: 0.7;
+            animation: float-down 8s infinite ease-in-out;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+
+        @keyframes float-down {
+            0% {
+                transform: translateY(-100px) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 选择界面 */
+        .selection-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background-image: url('https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/7f06740675bf42e295296eb48501bd16.PNG~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260216171436DB26EB9ECC839F57F7D9&rrcfp=dafada99&x-expires=2087457277&x-signature=ARaU%2BfEWvA2wknbnAzt36%2FiN27Q%3D');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .selection-screen.hidden {
+            display: none;
+        }
+
+        /* 核心修改：马年大吉竖向2×2排列 + 钟齐志莽行书 */
+        .selection-title {
+            font-family: 'ZhongQiZhiMangXingShu', 'STXingkai', 'KaiTi', serif; /* 优先钟齐志莽行书 */
+            font-size: 72px;
+            color: #FFD700;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
+            animation: titlePulse 2s ease-in-out infinite;
+            font-weight: bold;
+            /* 改为flex布局实现2×2竖向排列 */
+            display: flex;
+            gap: 40px; /* 左右列间距 */
+            letter-spacing: 10px;
+        }
+
+        /* 竖向列容器（单个字竖向堆叠） */
+        .vertical-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* 上下字间距 */
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 40px rgba(255, 215, 0, 0.9), 4px 4px 8px rgba(0, 0, 0, 0.6);
+            }
+        }
+
+        .selection-subtitle {
+            font-size: 28px;
+            color: #FFD700;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            opacity: 0.9;
+        }
+
+        .selection-buttons {
+            display: flex;
+            gap: 40px;
+        }
+
+        .selection-btn {
+            padding: 25px 50px;
+            font-size: 26px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #8B0000;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'KaiTi', 'Microsoft YaHei', serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .selection-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .selection-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .selection-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        /* 红包动画容器 */
+        .envelope-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            background-image: url('https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/7f06740675bf42e295296eb48501bd16.PNG~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260216171436DB26EB9ECC839F57F7D9&rrcfp=dafada99&x-expires=2087457277&x-signature=ARaU%2BfEWvA2wknbnAzt36%2FiN27Q%3D');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .envelope-container.show {
+            display: flex;
+        }
+
+        /* 红包外壳 */
+        .envelope-wrapper {
+            position: relative;
+            width: 400px;
+            height: 280px;
+            animation: envelopeAppear 0.8s ease-out;
+        }
+
+        @keyframes envelopeAppear {
+            0% {
+                transform: scale(0) rotate(180deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.1) rotate(-10deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* 红包主体 */
+        .envelope-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            border: 4px solid #FFD700;
+            border-radius: 12px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* 红包上的福字 */
+        .envelope-fu {
+            font-size: 100px;
+            color: #FFD700;
+            font-weight: bold;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
+            z-index: 2;
+            font-family: 'STXingkai', 'KaiTi', serif;
+        }
+
+        /* 红包上盖 - 横向打开 */
+        .envelope-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #B22222 0%, #8B0000 100%);
+            border: 4px solid #FFD700;
+            border-radius: 12px;
+            transform-origin: left center;
+            z-index: 10;
+            animation: openHorizontal 1.5s ease-in-out 1.5s forwards;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes openHorizontal {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(-180deg);
+            }
+        }
+
+        /* 内部卡片 - 从右侧抽出 */
+        .blessing-card-inner {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            height: 220px;
+            background: linear-gradient(135deg, #FFF8DC 0%, #FFEFD5 100%);
+            border: 3px solid #FFD700;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            animation: cardPullOut 1.2s ease-out 2.8s forwards;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blessing-card-inner::before {
+            content: '马年大吉';
+            font-size: 36px;
+            color: #8B0000;
+            font-weight: bold;
+            font-family: 'ZhongQiZhiMangXingShu', 'STXingkai', 'KaiTi', serif; /* 红包内也用志莽行书 */
+        }
+
+        @keyframes cardPullOut {
+            0% {
+                right: 10%;
+                opacity: 1;
+            }
+            100% {
+                right: -120%;
+                opacity: 1;
+            }
+        }
+
+        /* 主内容页面 */
+        .main-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            overflow-y: auto;
+            z-index: 50;
+            padding: 40px 20px;
+        }
+
+        .main-content.show {
+            display: block;
+            animation: contentFadeIn 1s ease-in;
+        }
+
+        @keyframes contentFadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .content-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 书法标题装饰（主内容页的马年大吉也修改） */
+        .calligraphy-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .calligraphy-main {
+            font-family: 'ZhongQiZhiMangXingShu', 'STXingkai', 'KaiTi', serif; /* 主标题志莽行书 */
+            font-size: 96px;
+            color: #FFD700;
+            font-weight: bold;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+            /* 主标题也改为2×2竖向排列 */
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: textGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 5px 5px 10px rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        .calligraphy-sub {
+            font-size: 36px;
+            color: #FFD700;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+            opacity: 0.95;
+            font-family: 'STXingkai', 'KaiTi', serif;
+            letter-spacing: 8px;
+        }
+
+        /* 装饰线条 */
+        .decoration-line {
+            width: 100%;
+            max-width: 600px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, #FFD700 50%, transparent 100%);
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .decoration-line::before,
+        .decoration-line::after {
+            content: '❀';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #FFD700;
+        }
+
+        .decoration-line::before {
+            left: -40px;
+        }
+
+        .decoration-line::after {
+            right: -40px;
+        }
+
+        /* 祝福卡片 */
+        .blessings-container {
+            display: grid;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .blessing-item {
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.95) 0%, rgba(255, 239, 213, 0.95) 100%);
+            border: 3px solid #FFD700;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: cardSlideIn 0.6s ease-out backwards;
+            backdrop-filter: blur(5px);
+        }
+
+        .blessing-item:nth-child(1) { animation-delay: 0.1s; }
+        .blessing-item:nth-child(2) { animation-delay: 0.2s; }
+        .blessing-item:nth-child(3) { animation-delay: 0.3s; }
+        .blessing-item:nth-child(4) { animation-delay: 0.4s; }
+        .blessing-item:nth-child(5) { animation-delay: 0.5s; }
+        .blessing-item:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes cardSlideIn {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .blessing-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(-30px, -30px) rotate(180deg);
+            }
+        }
+
+        .blessing-title {
+            font-size: 26px;
+            color: #8B0000;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .blessing-icon {
+            font-size: 32px;
+        }
+
+        .blessing-text {
+            font-size: 19px;
+            color: #2C1810;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        /* 底部署名 */
+        .footer-signature {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.15);
+            border-radius: 15px;
+            border: 2px solid #FFD700;
+            backdrop-filter: blur(5px);
+        }
+
+        .footer-text {
+            font-size: 28px;
+            color: #FFD700;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            font-family: 'STXingkai', 'KaiTi', serif;
+        }
+
+        .footer-subtext {
+            font-size: 20px;
+            color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            opacity: 0.9;
+        }
+
+        /* 数字选择界面 */
+        .number-selection-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 150;
+            background-image: url('https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/7f06740675bf42e295296eb48501bd16.PNG~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260216171436DB26EB9ECC839F57F7D9&rrcfp=dafada99&x-expires=2087457277&x-signature=ARaU%2BfEWvA2wknbnAzt36%2FiN27Q%3D');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .number-selection-screen.show {
+            display: flex;
+        }
+
+        .number-selection-title {
+            font-size: 48px;
+            color: #FFD700;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+            font-family: 'KaiTi', serif;
+        }
+
+        .number-selection-subtitle {
+            font-size: 28px;
+            color: #FFD700;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            opacity: 0.9;
+        }
+
+        .number-buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            max-width: 700px;
+        }
+
+        .number-btn {
+            width: 90px;
+            height: 90px;
+            font-size: 56px;
+            font-family: 'Times New Roman', serif;
+            color: #DC143C;
+            background: linear-gradient(135deg, #FFF8DC 0%, #FFEFD5 100%);
+            border: 4px solid #FFD700;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .number-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .number-btn:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .number-btn:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        .number-btn:active {
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        /* 等待动画 */
+        .waiting-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 160;
+            background-image: url('https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/7f06740675bf42e295296eb48501bd16.PNG~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260216171436DB26EB9ECC839F57F7D9&rrcfp=dafada99&x-expires=2087457277&x-signature=ARaU%2BfEWvA2wknbnAzt36%2FiN27Q%3D');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .waiting-screen.show {
+            display: flex;
+        }
+
+        .waiting-content {
+            text-align: center;
+        }
+
+        .waiting-number {
+            font-size: 120px;
+            color: #FFD700;
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+            animation: numberPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes numberPulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+            }
+            50% {
+                transform: scale(1.15);
+                text-shadow: 0 0 50px rgba(255, 215, 0, 1), 5px 5px 15px rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        .waiting-text {
+            font-size: 36px;
+            color: #FFD700;
+            font-family: 'KaiTi', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .countdown {
+            font-size: 72px;
+            color: #FFD700;
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            margin-top: 30px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <!-- 金箔背景 -->
+    <div class="gold-foil-bg" id="goldFoilBg"></div>
+
+    <!-- 选择界面 -->
+    <div class="selection-screen" id="selectionScreen">
+        <!-- 修改：马年大吉改为2×2竖向排列结构 -->
+        <div class="selection-title">
+            <div class="vertical-column">
+                <span>大</span>
+                <span>吉</span>
+            </div>
+            <div class="vertical-column">
+                <span>马</span>
+                <span>年</span>
+            </div>
+        </div>
+        <div class="selection-subtitle">请选择您与我的关系</div>
+        <div class="selection-buttons">
+            <button class="selection-btn" onclick="selectRelation('同学')">同学</button>
+            <button class="selection-btn" onclick="selectRelation('老师')">老师</button>
+            <button class="selection-btn" onclick="selectRelation('朋友')">朋友</button>
+        </div>
+    </div>
+
+    <!-- 数字选择界面 -->
+    <div class="number-selection-screen" id="numberSelectionScreen">
+        <div class="number-selection-title">🎊 请选择一个幸运数字 🎊</div>
+        <div class="number-selection-subtitle">点击您心仪的数字，开启专属祝福</div>
+        <div class="number-buttons-container" id="numberButtonsContainer">
+            <!-- 动态生成数字按钮 -->
+        </div>
+    </div>
+
+    <!-- 等待界面 -->
+    <div class="waiting-screen" id="waitingScreen">
+        <div class="waiting-content">
+            <div class="waiting-number" id="selectedNumber">1</div>
+            <div class="waiting-text">正在为您准备专属祝福...</div>
+            <div class="countdown" id="countdown">3</div>
+        </div>
+    </div>
+
+    <!-- 红包动画 -->
+    <div class="envelope-container" id="envelopeContainer">
+        <div class="envelope-wrapper">
+            <div class="envelope-body">
+                <div class="envelope-fu">福</div>
+            </div>
+            <div class="envelope-top"></div>
+            <div class="blessing-card-inner"></div>
+        </div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="main-content" id="mainContent">
+        <div class="content-wrapper">
+            <!-- 书法标题（同步修改为2×2竖向） -->
+            <div class="calligraphy-header">
+                <div class="calligraphy-main">
+                    <div class="vertical-column">
+                        <span>大</span>
+                        <span>吉</span>
+                    </div>
+                    <div class="vertical-column">
+                        <span>马</span>
+                        <span>年</span>
+                    </div>
+                </div>
+                <div class="decoration-line"></div>
+                <div class="calligraphy-sub" id="mainSubtitle">恭贺新春</div>
+            </div>
+
+            <!-- 祝福内容 -->
+            <div class="blessings-container" id="blessingsContainer">
+                <!-- 动态生成 -->
+            </div>
+
+            <!-- 底部署名 -->
+            <div class="footer-signature">
+                <div class="footer-text">恭祝马年快乐 万事如意</div>
+                <div class="footer-subtext">愿新的一年，一马当先，马到功成！</div>
+                <div class="footer-subtext" style="margin-top: 20px; font-size: 18px;">来自USACO Silver得主 唐浩浩的真挚祝福</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 创建金箔效果
+        function createGoldFoil() {
+            const container = document.getElementById('goldFoilBg');
+            for (let i = 0; i < 40; i++) {
+                const foil = document.createElement('div');
+                foil.className = 'gold-foil';
+                
+                const size = Math.random() * 15 + 5;
+                foil.style.width = size + 'px';
+                foil.style.height = size + 'px';
+                foil.style.left = Math.random() * 100 + '%';
+                foil.style.top = Math.random() * -100 + 'px';
+                foil.style.animationDelay = Math.random() * 8 + 's';
+                foil.style.animationDuration = (Math.random() * 6 + 8) + 's';
+                
+                container.appendChild(foil);
+            }
+        }
+
+        // 祝福语数据 - 第一条必须是身体健康
+        const blessingsData = {
+            '同学': [
+                {
+                    icon: '💪',
+                    title: '身体健康 龙马精神',
+                    text: '祝你在新的一年里身体健康，龙马精神！像骏马一样强健有力，精力充沛。无论学习多么繁重，都要记得照顾好自己，健康才是一切的根本！'
+                },
+                {
+                    icon: '📚',
+                    title: '学业进步 一马当先',
+                    text: '愿你在新的一年里学业如骏马奔腾，一马当先，勇攀高峰！考试顺利，金榜题名，在知识的海洋中策马扬鞭，马到成功！'
+                },
+                {
+                    icon: '🎯',
+                    title: '前程似锦 快马加鞭',
+                    text: '祝你在新的学期里快马加鞭，奋勇向前！无论是学习还是生活，都能马不停蹄地追逐梦想，实现自己的目标！'
+                },
+                {
+                    icon: '🎊',
+                    title: '万事胜意 马上有喜',
+                    text: '新的一年，愿你马上有喜，万事如意！学习进步，友谊长存，每一天都充满惊喜和快乐！'
+                }
+            ],
+            '老师': [
+                {
+                    icon: '💪',
+                    title: '身体健康 龙马精神',
+                    text: '敬爱的老师，祝您在新的一年里身体健康，龙马精神！您为教育事业付出了太多心血，请一定要保重身体，健康是最大的财富！'
+                },
+                {
+                    icon: '🎓',
+                    title: '德高望重 老马识途',
+                    text: '您如老马识途般引领我们前行。在马年里，祝您桃李满天下，教学事业蒸蒸日上，马到成功！'
+                },
+                {
+                    icon: '📖',
+                    title: '春风化雨 马不停蹄',
+                    text: '感谢您马不停蹄地为我们传道授业解惑。愿您在马年里工作顺利，桃李芬芳，收获满满的教学成果！'
+                },
+                {
+                    icon: '🏆',
+                    title: '桃李天下 一马当先',
+                    text: '您的教诲如同千里马的引领，让我们找到正确的方向。祝您在新的一年里一马当先，教育事业再创辉煌！'
+                },
+                {
+                    icon: '💐',
+                    title: '德才兼备 马到功成',
+                    text: '尊敬的老师，您德才兼备，诲人不倦。马年祝您马到功成，工作顺利，家庭幸福，万事如意！'
+                }
+            ],
+            '朋友': [
+                {
+                    icon: '💪',
+                    title: '身体健康 龙马精神',
+                    text: '亲爱的朋友，最重要的祝福送给你：愿你在新的一年里身体健康，龙马精神！健康是幸福的基础，希望你每天都精力充沛，活力满满！'
+                },
+                {
+                    icon: '🎉',
+                    title: '事业有成 马到成功',
+                    text: '祝你在新的一年里事业如骏马奔腾，马到成功！无论遇到什么困难，都能像千里马一样勇往直前，实现梦想！'
+                },
+                {
+                    icon: '🤝',
+                    title: '友谊长存 并驾齐驱',
+                    text: '愿我们的友谊如同并驾齐驱的骏马，永远相伴相随！在马年里，让我们一起策马扬鞭，共创美好未来！'
+                },
+                {
+                    icon: '❤️',
+                    title: '幸福美满 马上有福',
+                    text: '愿你马上有福，马上有喜！家庭和睦，爱情甜蜜，生活如万马奔腾般充满激情和希望！'
+                },
+                {
+                    icon: '💰',
+                    title: '财源广进 马上有钱',
+                    text: '祝你财运亨通，马上有钱！生意兴隆，财源滚滚，在马年里收获满满，腰包鼓鼓！'
+                },
+                {
+                    icon: '🌈',
+                    title: '快乐无忧 信马由缰',
+                    text: '愿你在新的一年里信马由缰，自由自在！心情舒畅，快乐无忧，每一天都充满阳光和欢笑！'
+                }
+            ]
+        };
+
+        let selectedRelation = '';
+        let selectedNumberValue = 0;
+
+        // 选择关系
+        function selectRelation(relation) {
+            selectedRelation = relation;
+            
+            // 隐藏选择界面
+            document.getElementById('selectionScreen').classList.add('hidden');
+            
+            // 生成数字按钮
+            const blessingsCount = blessingsData[relation].length;
+            const container = document.getElementById('numberButtonsContainer');
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= blessingsCount; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'number-btn';
+                btn.textContent = i;
+                btn.onclick = () => selectNumber(i);
+                container.appendChild(btn);
+            }
+            
+            // 显示数字选择界面
+            document.getElementById('numberSelectionScreen').classList.add('show');
+        }
+
+        // 选择数字
+        function selectNumber(number) {
+            selectedNumberValue = number;
+            
+            // 隐藏数字选择界面
+            document.getElementById('numberSelectionScreen').classList.remove('show');
+            
+            // 直接显示红包动画
+            document.getElementById('envelopeContainer').classList.add('show');
+            
+            // 4秒后显示主内容
+            setTimeout(() => {
+                document.getElementById('envelopeContainer').style.display = 'none';
+                showMainContent(selectedRelation);
+            }, 4000);
+        }
+
+        // 显示主内容
+        function showMainContent(relation) {
+            const blessings = blessingsData[relation];
+            const container = document.getElementById('blessingsContainer');
+            
+            // 清空容器
+            container.innerHTML = '';
+            
+            // 先只显示选中的祝福
+            const selectedBlessing = blessings[selectedNumberValue - 1];
+            const selectedCard = document.createElement('div');
+            selectedCard.className = 'blessing-item';
+            selectedCard.style.animationDelay = '0s';
+            selectedCard.innerHTML = `
+                <div class="blessing-title">
+                    <span class="blessing-icon">${selectedBlessing.icon}</span>
+                    <span>${selectedBlessing.title}</span>
+                </div>
+                <div class="blessing-text">${selectedBlessing.text}</div>
+            `;
+            container.appendChild(selectedCard);
+            
+            // 更新标题
+            const titles = {
+                '同学': '祝你',
+                '老师': '祝老师您',
+                '朋友': '祝我的挚友你'
+            };
+            document.getElementById('mainSubtitle').textContent = titles[relation];
+            
+            // 显示主内容
+            document.getElementById('mainContent').classList.add('show');
+            
+            // 3秒后显示其他祝福
+            setTimeout(() => {
+                let delay = 0.1;
+                blessings.forEach((blessing, index) => {
+                    // 跳过已经显示的那条
+                    if (index === selectedNumberValue - 1) {
+                        return;
+                    }
+                    
+                    const card = document.createElement('div');
+                    card.className = 'blessing-item';
+                    card.style.animationDelay = delay + 's';
+                    card.innerHTML = `
+                        <div class="blessing-title">
+                            <span class="blessing-icon">${blessing.icon}</span>
+                            <span>${blessing.title}</span>
+                        </div>
+                        <div class="blessing-text">${blessing.text}</div>
+                    `;
+                    container.appendChild(card);
+                    delay += 0.15;
+                });
+            }, 3000);
+        }
+
+        // 初始化
+        window.onload = function() {
+            createGoldFoil();
+        };
+    </script>
+</body>
+</html>

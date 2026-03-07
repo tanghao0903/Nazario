@@ -12,8 +12,8 @@ Build a closed loop that combines:
 
 ## Repository Layout
 - `docs/quant-architecture.md`: Detailed architecture and execution flow
-- `src_cpp/connectors/grok_client.*`: Grok adapter (currently deterministic placeholder)
-- `src_cpp/connectors/market_data_client.*`: Market adapter (currently deterministic placeholder)
+- `src_cpp/connectors/grok_client.*`: Grok adapter (wired to xAI `chat/completions`)
+- `src_cpp/connectors/market_data_client.*`: Market adapter (placeholder)
 - `src_cpp/strategy/signal_engine.*`: Rule-based decision engine
 - `src_cpp/simulator/paper_broker.*`: Cash/position/PnL simulator
 - `src_cpp/reporting/trade_logger.*`: CSV trade logging
@@ -22,8 +22,8 @@ Build a closed loop that combines:
 
 ## Environment
 Copy `config/example.env` to `.env` and set:
-- `GROK_BASE_URL`, `GROK_API_KEY`, `GROK_SEARCH_PATH`
-- `MARKET_DATA_BASE_URL`, `MARKET_DATA_API_KEY`, `MARKET_QUOTE_PATH`
+- Grok: `GROK_API_KEY`, `GROK_BASE_URL`, `GROK_SEARCH_PATH`, `GROK_MODEL`
+- Market: `MARKET_DATA_BASE_URL`, `MARKET_DATA_API_KEY`, `MARKET_QUOTE_PATH`
 - Risk controls: `MAX_POSITION_NOTIONAL`, `MAX_TRADE_NOTIONAL`, `MIN_CONFIDENCE`, thresholds
 
 ## Build & Run
@@ -34,5 +34,5 @@ Copy `config/example.env` to `.env` and set:
 5. Inspect `output/trade_log.csv` in Excel.
 
 ## Notes
-- Current connectors are mock-safe placeholders so the flow runs deterministically.
-- Next step is replacing the placeholder sections with your exact Grok and market API schemas.
+- Grok connector sends `chat/completions` with tools `web_search` and `x_search`.
+- Market connector is still a deterministic placeholder until you provide your live market API schema.

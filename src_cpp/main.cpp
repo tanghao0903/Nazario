@@ -31,12 +31,15 @@ int main() {
     env.load(".env");
 
     const std::string grok_api_key = env.get("GROK_API_KEY", "");
-    const std::string grok_base_url = env.get("GROK_BASE_URL", "");
-    const std::string grok_search_path = env.get("GROK_SEARCH_PATH", "/search");
+    const std::string grok_base_url = env.get("GROK_BASE_URL", "https://api.x.ai/v1");
+    const std::string grok_search_path = env.get("GROK_SEARCH_PATH", "/chat/completions");
+    const std::string grok_model = env.get("GROK_MODEL", "grok-3-latest");
 
     const std::string market_api_key = env.get("MARKET_DATA_API_KEY", "");
     const std::string market_base_url = env.get("MARKET_DATA_BASE_URL", "");
     const std::string market_quote_path = env.get("MARKET_QUOTE_PATH", "/quote");
+
+    const int request_timeout_sec = env.get_int("REQUEST_TIMEOUT_SEC", 20);
 
     const double initial_capital = env.get_double("INITIAL_CAPITAL", 10000.0);
     const double max_position_notional = env.get_double("MAX_POSITION_NOTIONAL", 2500.0);
@@ -52,7 +55,7 @@ int main() {
 
     const std::vector<std::string> watchlist = parse_watchlist(watchlist_raw);
 
-    GrokClient grok(grok_api_key, grok_base_url, grok_search_path);
+    GrokClient grok(grok_api_key, grok_base_url, grok_search_path, grok_model, request_timeout_sec);
     MarketDataClient market(market_api_key, market_base_url, market_quote_path);
     SignalEngine strategy(buy_threshold, sell_threshold, min_confidence, max_trade_notional);
     PaperBroker broker(initial_capital, fee_rate, max_position_notional);
